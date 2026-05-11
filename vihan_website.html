@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vihan Raval</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#05060b;
+  --blue:#2563eb;
+  --blue2:#3b82f6;
+  --gold:#c9a84c;
+  --gold2:#f0c96a;
+  --text:#f1f5f9;
+  --muted:#6b7280;
+  --faint:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-thumb{background:var(--blue);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 6vw;transition:all 0.5s;}
+nav.dark{background:rgba(5,6,11,0.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.14em;color:var(--text);}
+.logo em{color:var(--gold);font-style:normal;}
+.nav-r{display:flex;align-items:center;gap:2.5rem;}
+.nav-r a{text-decoration:none;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);transition:color .3s;}
+.nav-r a:hover{color:var(--text);}
+.nav-cta{padding:.5rem 1.3rem;border:1px solid rgba(37,99,235,.5);border-radius:4px;color:var(--blue2) !important;transition:all .3s !important;}
+.nav-cta:hover{background:rgba(37,99,235,.12) !important;border-color:var(--blue2) !important;}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;}
+.hero-portrait{position:absolute;right:0;top:0;bottom:0;width:55%;z-index:1;}
+.hero-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(100%) brightness(.5) contrast(1.2);}
+.hero-portrait::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(5,6,11,.85) 30%,rgba(5,6,11,.3) 70%,transparent 100%);z-index:2;}
+.hero-portrait::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,var(--bg),transparent);z-index:2;}
+canvas#p{position:absolute;inset:0;z-index:3;pointer-events:none;}
+
+.hero-inner{position:relative;z-index:10;padding:0 6vw;max-width:700px;}
+.h-status{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:2.2rem;}
+.h-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:gp 2.2s infinite;}
+@keyframes gp{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.5);}50%{box-shadow:0 0 0 7px rgba(201,168,76,0);}}
+.h-status span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;}
+
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:.9;letter-spacing:-.03em;margin-bottom:1.8rem;}
+.h1-name{display:block;font-size:clamp(5rem,10vw,9.5rem);color:var(--text);}
+.h1-morph{display:block;font-size:clamp(5rem,10vw,9.5rem);position:relative;overflow:visible;height:clamp(5rem,10vw,9.5rem);}
+.mw{position:absolute;top:0;left:0;background:linear-gradient(120deg,var(--blue2) 0%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;transform:translateY(50px);transition:opacity .5s,transform .5s;white-space:nowrap;}
+.mw.on{opacity:1;transform:translateY(0);}
+.mw.off{opacity:0;transform:translateY(-50px);}
+
+.h-quote{font-size:.95rem;color:rgba(241,245,249,.45);font-style:italic;border-left:1.5px solid var(--gold);padding-left:1.1rem;line-height:1.8;margin-bottom:2.2rem;}
+.h-quote b{color:var(--gold2);font-style:normal;}
+
+.h-desc{font-size:.92rem;color:var(--muted);line-height:1.9;max-width:480px;margin-bottom:2.6rem;}
+
+.h-btns{display:flex;gap:1rem;}
+.btn-solid{padding:.85rem 2rem;background:var(--blue);border:none;border-radius:4px;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.09em;text-decoration:none;cursor:pointer;transition:all .3s;box-shadow:0 0 35px rgba(37,99,235,.35);}
+.btn-solid:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 0 55px rgba(37,99,235,.55);}
+.btn-out{padding:.85rem 2rem;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:.8rem;letter-spacing:.09em;text-decoration:none;cursor:pointer;transition:all .3s;}
+.btn-out:hover{border-color:rgba(59,130,246,.4);color:var(--text);}
+
+.scroll-hint{position:absolute;bottom:2.5rem;left:6vw;z-index:10;display:flex;align-items:center;gap:.8rem;}
+.scroll-hint span{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(107,114,128,.5);}
+.sh-line{width:36px;height:1px;background:linear-gradient(90deg,var(--blue),transparent);}
+
+/* ── SECTION BASE ── */
+.s{padding:10rem 6vw;max-width:1280px;margin:0 auto;}
+.s-tag{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--blue2);font-weight:500;margin-bottom:1rem;}
+.s-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(2.4rem,4vw,3.8rem);line-height:1;letter-spacing:-.025em;margin-bottom:1rem;}
+.accent{color:var(--gold2);}
+.rule{width:44px;height:1px;background:linear-gradient(90deg,var(--blue),var(--gold));margin-bottom:3.5rem;}
+.divider{border:none;border-top:1px solid var(--border);margin:0;}
+
+/* ── OPERATING PRINCIPLE ── */
+#op{background:var(--bg);}
+.op-layout{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start;}
+.op-left{}
+.op-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,3.5vw,3rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:2rem;}
+.op-big em{color:var(--gold2);font-style:normal;display:block;}
+.op-body{font-size:.92rem;color:var(--muted);line-height:2;max-width:480px;}
+.op-right{padding-top:1rem;}
+.quote-block{padding:2.5rem;border:1px solid rgba(201,168,76,.12);border-radius:8px;background:rgba(201,168,76,.03);position:relative;overflow:hidden;}
+.quote-block::before{content:'"';position:absolute;top:-.5rem;left:1.5rem;font-family:'Space Grotesk',sans-serif;font-size:8rem;color:var(--gold);opacity:.06;line-height:1;}
+.qt{font-size:1.05rem;font-weight:500;line-height:1.75;color:var(--text);margin-bottom:1.2rem;}
+.qa{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.op-tag-row{display:flex;flex-direction:column;gap:.8rem;margin-top:3rem;}
+.op-tag{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:6px;font-size:.82rem;color:var(--muted);background:var(--faint);}
+.op-tag-num{font-family:'Space Grotesk',sans-serif;font-size:.65rem;letter-spacing:.15em;color:var(--blue2);min-width:24px;}
+.op-tag-text{font-weight:500;color:var(--text);}
+
+/* ── RECORD ── */
+#record{background:var(--bg);}
+.carousel-outer{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.c-track{display:flex;transition:transform .75s cubic-bezier(.77,0,.18,1);}
+.c-slide{min-width:100%;display:grid;grid-template-columns:1fr 1fr;min-height:520px;}
+.c-img{position:relative;overflow:hidden;}
+.c-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(.75);transition:filter .5s;}
+.c-slide:hover .c-img img{filter:brightness(.65) saturate(.85);}
+.c-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--bg) 100%);}
+.c-body{padding:4rem;display:flex;flex-direction:column;justify-content:center;background:var(--bg);}
+.c-num{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue2);margin-bottom:1.2rem;}
+.c-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,2.5vw,2.1rem);font-weight:700;line-height:1.2;margin-bottom:1rem;color:var(--text);}
+.c-desc{font-size:.87rem;color:var(--muted);line-height:1.85;max-width:380px;}
+.c-controls{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 2rem;border-top:1px solid var(--border);background:rgba(5,6,11,.8);}
+.c-dots{display:flex;gap:.5rem;}
+.cd{width:6px;height:6px;border-radius:3px;background:var(--border);cursor:pointer;transition:all .3s;}
+.cd.on{width:22px;background:var(--blue2);}
+.c-arrows{display:flex;gap:.6rem;}
+.ca{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:.9rem;transition:all .3s;}
+.ca:hover{border-color:var(--blue2);color:var(--text);}
+
+/* ── CONNECT ── */
+#connect{background:var(--bg);}
+.connect-layout{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start;}
+.connect-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,4vw,4rem);font-weight:700;line-height:1;letter-spacing:-.03em;margin-bottom:1.5rem;}
+.connect-sub{font-size:.9rem;color:var(--muted);line-height:1.9;max-width:420px;}
+.link-list{display:flex;flex-direction:column;gap:.9rem;margin-top:1rem;}
+.cl{display:flex;align-items:center;gap:1.2rem;padding:1.3rem 1.5rem;border:1px solid var(--border);border-radius:7px;text-decoration:none;color:var(--text);background:var(--faint);transition:all .3s;}
+.cl:hover{border-color:rgba(59,130,246,.3);background:rgba(37,99,235,.05);transform:translateX(5px);}
+.cl-ic{width:38px;height:38px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--faint);}
+.cl-info{flex:1;}
+.cl-lbl{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem;}
+.cl-val{font-size:.87rem;font-weight:500;}
+.cl-arr{color:var(--muted);transition:all .3s;font-size:.9rem;}
+.cl:hover .cl-arr{transform:translateX(4px);color:var(--blue2);}
+
+/* ── FOOTER ── */
+.foot{text-align:center;padding:2.5rem 6vw;border-top:1px solid var(--border);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(107,114,128,.35);}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease;}
+.rv.d1{transition-delay:.1s;}
+.rv.d2{transition-delay:.2s;}
+.rv.d3{transition-delay:.3s;}
+.rv.vis{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">V<em>.</em>RAVAL</div>
+  <div class="nav-r">
+    <a href="#op">Philosophy</a>
+    <a href="#record">Record</a>
+    <a href="#connect" class="nav-cta">Connect</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-portrait">
+    <img id="heroImg" src="assets/vihan_suit.jpg" alt="Vihan Raval"
+         onerror="this.style.display='none'"/>
+  </div>
+  <canvas id="p"></canvas>
+
+  <div class="hero-inner">
+    <div class="h-status">
+      <div class="h-dot"></div>
+      <span>McKinney, TX · UT Austin '30</span>
+    </div>
+
+    <h1>
+      <span class="h1-name">Vihan</span>
+      <div class="h1-morph" id="morphBox">
+        <span class="mw on">Entrepreneur.</span>
+        <span class="mw">Builder.</span>
+        <span class="mw">Influencer.</span>
+      </div>
+    </h1>
+
+    <p class="h-quote"><b>"Average was never the plan."</b></p>
+
+    <p class="h-desc">From presenting at Fortune 500 companies to building stealth software — my life mission is simple: I'm here to win. Whether that means an extra night of caffeine, or forming long-term teams, I'm ready to go the extra mile to reach eudaimonia.</p>
+
+    <div class="h-btns">
+      <a href="#record" class="btn-solid">View the Record</a>
+      <a href="#connect" class="btn-out">Connect</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="sh-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- OPERATING PRINCIPLE -->
+<section id="op">
+  <div class="s">
+    <div class="rv">
+      <p class="s-tag">Mental OS</p>
+      <h2 class="s-title">The Operating <span class="accent">Principle</span></h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="op-layout">
+      <div class="op-left rv d1">
+        <p class="op-big"><em>Execute. Execute. Execute.</em></p>
+        <p class="op-body">An executed draft always defeats an unexecuted plan. Period.</p>
+
+        <div class="op-tag-row" style="margin-top:3rem;">
+          <div class="op-tag"><span class="op-tag-num">01</span><span class="op-tag-text">Velocity over perfection</span></div>
+          <div class="op-tag"><span class="op-tag-num">02</span><span class="op-tag-text">Conviction in contrarian bets</span></div>
+          <div class="op-tag"><span class="op-tag-num">03</span><span class="op-tag-text">Build systems, not just habits</span></div>
+          <div class="op-tag"><span class="op-tag-num">04</span><span class="op-tag-text">Announce results — not intentions</span></div>
+        </div>
+      </div>
+
+      <div class="op-right rv d2">
+        <div class="quote-block">
+          <p class="qt">Success is not final, failure is not fatal — it is the courage to continue that counts.</p>
+          <p class="qa">— Winston Churchill</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- RECORD -->
+<section id="record">
+  <div class="s">
+    <div class="rv">
+      <p class="s-tag">Proof of Work</p>
+      <h2 class="s-title">The <span class="accent">Record</span></h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="rv d1">
+      <div class="carousel-outer">
+        <div class="c-track" id="cTrack">
+
+          <!-- Slide 1: BWSI -->
+          <div class="c-slide">
+            <div class="c-img">
+              <img src="assets/bwsi.jpg" alt="MIT BWSI"
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#080e1e,#0b1428)'"/>
+            </div>
+            <div class="c-body">
+              <div class="c-num">01 — MIT BWSI</div>
+              <div class="c-title">Microelectronics<br/>Internship</div>
+              <div class="c-desc">Selected for MIT Beaver Works Summer Institute — a rigorous microelectronics and embedded systems research program for the nation's top technical students.</div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Capitol Hill -->
+          <div class="c-slide">
+            <div class="c-img">
+              <img src="assets/capitol.jpg" alt="Capitol Hill"
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#060c18,#0a1020)'"/>
+            </div>
+            <div class="c-body">
+              <div class="c-num">02 — Congressional App Challenge</div>
+              <div class="c-title">Won — Texas<br/>District 04</div>
+              <div class="c-desc">Won the Congressional App Challenge and represented Texas's 4th Congressional District on Capitol Hill in Washington D.C.</div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Genius Olympiad -->
+          <div class="c-slide">
+            <div class="c-img">
+              <img src="assets/medal.jpg" alt="Genius Olympiad Medal"
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#0c100a,#141808)'"/>
+            </div>
+            <div class="c-body">
+              <div class="c-num">03 — GENIUS Olympiad</div>
+              <div class="c-title">Silver Medal —<br/>Business Category</div>
+              <div class="c-desc">Awarded Silver Medal at the GENIUS Olympiad International High School Project Fair at the Rochester Institute of Technology, June 2025.</div>
+            </div>
+          </div>
+
+          <!-- Slide 4: MIT Blueprint Hacks -->
+          <div class="c-slide">
+            <div class="c-img">
+              <img src="assets/mit.jpg" alt="MIT Blueprint Hacks"
+                   onerror="this.parentElement.style.background='linear-gradient(135deg,#090d1e,#0c1230)'"/>
+            </div>
+            <div class="c-body">
+              <div class="c-num">04 — Blueprint Hacks 2025</div>
+              <div class="c-title">Invited &amp; Competed<br/>at MIT Hackathon</div>
+              <div class="c-desc">Received an invitation to Blueprint Hacks 2025, competing alongside top student builders from across the country on MIT's campus.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="c-controls">
+          <div class="c-dots" id="cDots">
+            <div class="cd on" data-i="0"></div>
+            <div class="cd" data-i="1"></div>
+            <div class="cd" data-i="2"></div>
+            <div class="cd" data-i="3"></div>
+          </div>
+          <div class="c-arrows">
+            <div class="ca" id="cPrev">&#8592;</div>
+            <div class="ca" id="cNext">&#8594;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="s">
+    <div class="connect-layout">
+      <div class="rv">
+        <p class="s-tag">Reach Out</p>
+        <h2 class="connect-big">Let's Build<br/><span class="accent">Something.</span></h2>
+        <p class="connect-sub">Whether you're an investor, collaborator, or just paying attention — reach out. The next chapter is being written now.</p>
+      </div>
+
+      <div class="link-list rv d1">
+        <a href="https://github.com/tinyCodersDen" target="_blank" class="cl">
+          <div class="cl-ic">⌥</div>
+          <div class="cl-info">
+            <div class="cl-lbl">GitHub</div>
+            <div class="cl-val">tinyCodersDen</div>
+          </div>
+          <span class="cl-arr">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/vihan-raval-5a082b31b" target="_blank" class="cl">
+          <div class="cl-ic">◈</div>
+          <div class="cl-info">
+            <div class="cl-lbl">LinkedIn</div>
+            <div class="cl-val">Vihan Raval</div>
+          </div>
+          <span class="cl-arr">→</span>
+        </a>
+        <a href="mailto:vihan.raval1@gmail.com" class="cl">
+          <div class="cl-ic">✉</div>
+          <div class="cl-info">
+            <div class="cl-lbl">Email</div>
+            <div class="cl-val">vihan.raval1@gmail.com</div>
+          </div>
+          <span class="cl-arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">© 2025 Vihan Raval &nbsp;·&nbsp; Average was never the plan</div>
+
+<script>
+/* ── PARTICLES ── */
+const cv=document.getElementById('p'),cx=cv.getContext('2d');
+let W,H,pts=[];
+function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+rsz();addEventListener('resize',rsz);
+class Pt{constructor(){this.rst();}rst(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*.9+.2;this.dx=(Math.random()-.5)*.22;this.dy=(Math.random()-.5)*.22;this.a=Math.random()*.35+.05;this.c=Math.random()>.65?'201,168,76':'59,130,246';}tick(){this.x+=this.dx;this.y+=this.dy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.rst();}draw(){cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fillStyle=`rgba(${this.c},${this.a})`;cx.fill();}}
+for(let i=0;i<80;i++)pts.push(new Pt());
+(function fr(){cx.clearRect(0,0,W,H);pts.forEach((p,i)=>{p.tick();p.draw();for(let j=i+1;j<pts.length;j++){const dx=p.x-pts[j].x,dy=p.y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<100){cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(pts[j].x,pts[j].y);cx.strokeStyle=`rgba(37,99,235,${.06*(1-d/100)})`;cx.lineWidth=.3;cx.stroke();}}});requestAnimationFrame(fr);})();
+
+/* ── MORPH HEADLINE ── */
+const mws=document.querySelectorAll('.mw');let mi=0;
+setInterval(()=>{
+  mws[mi].classList.remove('on');mws[mi].classList.add('off');
+  setTimeout(()=>{mws[mi].classList.remove('off');mi=(mi+1)%mws.length;mws[mi].classList.add('on');},420);
+},2400);
+
+/* ── NAV SCROLL ── */
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('dark',scrollY>30));
+
+/* ── CAROUSEL ── */
+const track=document.getElementById('cTrack'),dots=document.querySelectorAll('.cd');
+let cur=0,tot=4,busy=false,timer;
+function go(n){
+  if(busy)return;busy=true;
+  dots[cur].classList.remove('on');
+  cur=(n+tot)%tot;
+  track.style.transform=`translateX(-${cur*100}%)`;
+  dots[cur].classList.add('on');
+  setTimeout(()=>busy=false,800);
+}
+function auto(){timer=setInterval(()=>go(cur+1),5000);}
+function stop(){clearInterval(timer);}
+document.getElementById('cNext').addEventListener('click',()=>{stop();go(cur+1);auto();});
+document.getElementById('cPrev').addEventListener('click',()=>{stop();go(cur-1);auto();});
+dots.forEach(d=>d.addEventListener('click',()=>{stop();go(+d.dataset.i);auto();}));
+auto();
+
+/* ── REVEAL ── */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
